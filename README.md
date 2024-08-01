@@ -27,3 +27,4 @@ Details are as follows:
 - Minifier: terser
 - Compiler: rollup
 - Reporter: junit
+- CI/CD: GitHub Actions
