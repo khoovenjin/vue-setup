@@ -1,5 +1,6 @@
-# Include all browsers with a market share greater than 1%
-> 1%
+# Include all browsers with a market share greater than 0.2%
+# @see https://github.com/browserslist/browserslist#best-practices
+> 0.2%
 
 # Support the last 2 versions of each major browser
 last 2 versions
