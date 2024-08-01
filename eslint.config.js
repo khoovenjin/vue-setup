@@ -1,33 +1,43 @@
-import globals from "globals";
-import pluginJs from "@eslint/js";
-import tseslint from "typescript-eslint";
-import pluginVue from "eslint-plugin-vue";
-import json from "eslint-plugin-json";
-import prettier from "eslint-plugin-prettier";
-import _import from "eslint-plugin-import";
+import pluginJs from "@eslint/js"
+import pluginImport from "eslint-plugin-import"
+import json from "eslint-plugin-json"
+import prettier from "eslint-plugin-prettier/recommended"
+import pluginVue from "eslint-plugin-vue"
+import tseslint from "typescript-eslint"
 
 export default [
-  {
-    languageOptions: {
-      ecmaVersion: 2020,
-      parser: tseslint.parser,
-      globals: {
-        ...globals.browser,
-        ...globals.es2016,
-        ...globals.node,
-        ...globals.mocha,
-      },
-    },
-  },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   ...pluginVue.configs["flat/essential"],
-  ...json.configs["recommended"],
-  ...prettier.configs["recommended"],
+  prettier,
+  {
+    files: ["**/*.json"],
+    ...json.configs["recommended"],
+  },
   {
     plugins: {
-      import: _import,
+      import: pluginImport,
     },
+  },
+  {
+    languageOptions: {
+      globals: {
+        browser: "writable",
+        es6: "writable",
+        node: "writable",
+        mocha: "writable",
+      },
+    },
+  },
+  {
+    languageOptions: {
+      ecmaVersion: 2020,
+      parserOptions: {
+        parser: tseslint.parser,
+      },
+    },
+  },
+  {
     rules: {
       "no-console": 0,
       "no-debugger": 0,
@@ -37,14 +47,20 @@ export default [
         1,
         { alphabetize: { order: "asc", caseInsensitive: true } },
       ],
+      "prettier/prettier": [
+        "error",
+        {
+          endOfLine: "auto",
+        },
+      ],
     },
   },
   {
     files: ["**/__tests__/**/*.spec.{j,t}s?{x}"],
     languageOptions: {
       globals: {
-        ...globals.jest,
+        jest: "writable",
       },
     },
   },
-];
+]
