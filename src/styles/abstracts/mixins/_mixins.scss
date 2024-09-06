@@ -1,0 +1,31 @@
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @content;
+}
+
+@mixin mask(
+  $image,
+  $position: center,
+  $color: $white,
+  $height: 100%,
+  $width: 100%
+) {
+  background-color: $color;
+  -webkit-mask: url($image) no-repeat $position;
+  mask: url($image) no-repeat $position;
+  height: $height;
+  width: $width;
+}
+
+@mixin square($size, $radius: 0) {
+  width: $size;
+  height: $size;
+  border-radius: $radius;
+}
+
+@mixin circle($size) {
+  @include square($size, 50%);
+}
